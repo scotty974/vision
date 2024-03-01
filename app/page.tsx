@@ -85,9 +85,11 @@ export default function Home() {
         ></video>
       </motion.div>
       <motion.section
-        className="min-h-screen bg-slate-900"
+        className="min-h-screen "
         style={{ y: y3 }}
-      ></motion.section>
+      >
+<div className="w-full h-full bg-white"></div>
+      </motion.section>
     </>
   );
 }
