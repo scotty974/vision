@@ -11,6 +11,7 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
+import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 
 export default function Home() {
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
@@ -22,7 +23,8 @@ export default function Home() {
   const y3 = useTransform(scrollYProgress, [0, 1], [0, -400]);
 
   const rotationY2 = useTransform(scrollYProgress, [10, 50], [0, Math.PI / 4]);
-
+  const words =
+    "Welcome to Vision, where innovation meets creativity in the digital realm. As a cutting-edge agency, we transcend traditional boundaries to shape the future of online experiences. Our visionary team blends artistry and technology, crafting websites that not only meet today's standards but also set the stage for tomorrow's digital landscape. Join us on a journey into the future of web design, where limitless possibilities and unparalleled innovation converge. Elevate your online presence with Vision – Shaping Tomorrow's Web Today.";
   useEffect(() => {
     const updateMousePosition = (event: MouseEvent) => {
       setMouse({
@@ -93,13 +95,14 @@ export default function Home() {
       </motion.div>
       <motion.div style={{ y: y2 }}>
         <div
-          className="flex justify-center"
+          className="flex flex-col items-center justify-center container gap-8"
           onMouseEnter={textEnter}
           onMouseLeave={textExit}
         >
           <span className="text-center text-3xl border w-60 rounded-full p-4">
             Hello
           </span>
+          <TextGenerateEffect words={words}></TextGenerateEffect>
         </div>
         <Canvas
           shadows
