@@ -1,13 +1,15 @@
 "use client";
 import Header from "./components/Header/Header";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useFrame } from "@react-three/fiber";
 import Sphere from "./components/Cube/Cube";
 import TextDrei from "./components/TextDrei/TextDrei";
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion} from "framer-motion";
+
 export default function Home() {
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
-  const [cursorVariant, setcursorVariant] = useState("default");
+  const [cursorVariant, setCursorVariant] = useState("default");
+
 
   useEffect(() => {
     const updateMousePosition = (event: MouseEvent) => {
@@ -22,21 +24,10 @@ export default function Home() {
       window.removeEventListener("mousemove", updateMousePosition);
     };
   }, []);
-  const textEnter = () => setcursorVariant("text");
-  const textExit = () => setcursorVariant("default");
-  const variants: any = {
-    default: {
-      x: mouse.x - 16,
-      y: mouse.y - 16,
-    },
-    text: {
-      height: 200,
-      width: 200,
-      x: mouse.x - 75,
-      y: mouse.y - 75,
-      mixBlendMode: "difference",
-    },
-  };
+
+  const textEnter = () => setCursorVariant("text");
+  const textExit = () => setCursorVariant("default");
+
   return (
     <main>
       <section className="container m-auto">
@@ -52,7 +43,7 @@ export default function Home() {
             onMouseEnter={textEnter}
             onMouseLeave={textExit}
           >
-            <ambientLight intensity={0.1} />
+            <ambientLight intensity={0.8} />
             <spotLight
               position={[20, 20, 10]}
               penumbra={1}
@@ -62,12 +53,23 @@ export default function Home() {
             <TextDrei></TextDrei>
             <Sphere></Sphere>
           </Canvas>
+          
+          <motion.div
+            className="cursor"
+            animate={cursorVariant}
+            style={{
+              x: mouse.x - 16,
+              y: mouse.y - 16,
+              height: cursorVariant === "text" ? 200 : undefined,
+              width: cursorVariant === "text" ? 200 : undefined,
+              mixBlendMode: cursorVariant === "text" ? "difference" : undefined,
+            }}
+          ></motion.div>
         </div>
-        <motion.div
-          className="cursor"
-          variants={variants}
-          animate={cursorVariant}
-        ></motion.div>
+        <div className="text-center w-full">Scroll bottom</div>
+      </motion.section>
+      <motion.section className="min-h-screen">
+
       </motion.section>
     </main>
   );

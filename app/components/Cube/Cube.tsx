@@ -9,10 +9,11 @@ function Cube() {
     Mymesh.current.rotation.x = clock.getElapsedTime() * 0.03;
     Mymesh.current.rotation.y = clock.getElapsedTime() * 0.03;
   });
+
   return (
     <mesh ref={Mymesh} receiveShadow castShadow>
-      <boxGeometry args={[7.8, 7.8, 7.8]}/>
-      <MeshTransmissionMaterial backside backsideThickness={5} thickness={2} />
+      <boxGeometry args={[7.8, 7.8, 7.8]} />
+      <MeshTransmissionMaterial backside backsideThickness={10} thickness={5} />
     </mesh>
   );
 }
