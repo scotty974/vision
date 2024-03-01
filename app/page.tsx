@@ -1,10 +1,15 @@
 "use client";
-import Header from "./components/Header/Header";
+import Header from "../components/Header/Header";
 import { Canvas } from "@react-three/fiber";
-import Sphere from "./components/Cube/Cube";
-import TextDrei from "./components/TextDrei/TextDrei";
+import Sphere from "../components/Cube/Cube";
+import TextDrei from "../components/TextDrei/TextDrei";
 import { useEffect, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from "@/components/ui/resizable";
 
 export default function Home() {
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
@@ -16,6 +21,7 @@ export default function Home() {
   const y3 = useTransform(scrollYProgress, [0, 1], [0, -400]);
 
   const rotationY2 = useTransform(scrollYProgress, [10, 50], [0, Math.PI / 4]);
+
   useEffect(() => {
     const updateMousePosition = (event: MouseEvent) => {
       setMouse({
@@ -84,12 +90,18 @@ export default function Home() {
           loop
         ></video>
       </motion.div>
-      <motion.section
-        className="min-h-screen "
-        style={{ y: y3 }}
-      >
-<div className="w-full h-full bg-white"></div>
+      <motion.section className="min-h-screen w-full container m-auto" style={{ y: y3 }}>
+        <motion.div
+          className="w-full h-screen "
+         
+        >
+          <ResizablePanelGroup direction="horizontal">
+            <ResizablePanel><img src="/media/IROIKI.jpg" alt="IROIKI picture" className="w-full h-full object-cover" /></ResizablePanel>
+            <ResizableHandle withHandle />
+            <ResizablePanel><img src="/media/PF.jpg" alt="IROIKI picture" className="w-full h-full object-cover"/></ResizablePanel>
+          </ResizablePanelGroup>
+        </motion.div>
       </motion.section>
-    </>
+    </> 
   );
 }
