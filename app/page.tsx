@@ -1,16 +1,21 @@
 "use client";
 import Header from "./components/Header/Header";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas } from "@react-three/fiber";
 import Sphere from "./components/Cube/Cube";
 import TextDrei from "./components/TextDrei/TextDrei";
 import { useEffect, useState } from "react";
-import { motion, useScroll, useTransform} from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 export default function Home() {
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
-  const [cursorVariant, setCursorVariant] = useState("default");
-const { scrollYProgress } = useScroll();
 
+  const [cursorVariant, setCursorVariant] = useState("default");
+  const { scrollYProgress } = useScroll();
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, 200]);
+  const y2 = useTransform(scrollYProgress, [0, 0.5, 1], [0, -400, 0]);
+  const y3 = useTransform(scrollYProgress, [0, 1], [0, -400]);
+
+  const rotationY2 = useTransform(scrollYProgress, [10, 50], [0, Math.PI / 4]);
   useEffect(() => {
     const updateMousePosition = (event: MouseEvent) => {
       setMouse({
@@ -29,11 +34,22 @@ const { scrollYProgress } = useScroll();
   const textExit = () => setCursorVariant("default");
 
   return (
-    <main>
-      <section className="container m-auto">
+    <>
+      <motion.div
+        className="cursor"
+        animate={cursorVariant}
+        style={{
+          x: mouse.x - 16,
+          y: mouse.y - 16,
+          height: cursorVariant === "text" ? 200 : undefined,
+          width: cursorVariant === "text" ? 200 : undefined,
+          mixBlendMode: cursorVariant === "text" ? "difference" : undefined,
+        }}
+      ></motion.div>
+      <section className="container m-auto sticky ">
         <Header Enter={textEnter} Exit={textExit}></Header>
       </section>
-      <motion.section>
+      <motion.section style={{ y: y1 }}>
         <div className="flex justify-center items-center">
           <Canvas
             shadows
@@ -53,24 +69,25 @@ const { scrollYProgress } = useScroll();
             <TextDrei></TextDrei>
             <Sphere></Sphere>
           </Canvas>
-          
-          <motion.div
-            className="cursor"
-            animate={cursorVariant}
-            style={{
-              x: mouse.x - 16,
-              y: mouse.y - 16,
-              height: cursorVariant === "text" ? 200 : undefined,
-              width: cursorVariant === "text" ? 200 : undefined,
-              mixBlendMode: cursorVariant === "text" ? "difference" : undefined,
-            }}
-          ></motion.div>
         </div>
-        <div className="text-center w-full mb-20">Scroll bottom</div>
       </motion.section>
-      <motion.section className="min-h-screen bg-white" style={{ scaleX: scrollYProgress }} onMouseEnter={textEnter} onMouseLeave={textExit}>
-
-      </motion.section>
-    </main>
+      <motion.div
+        className="min-h-screen container m-auto"
+        style={{ y: y2, rotateY: rotationY2 }}
+        onMouseEnter={textEnter}
+        onMouseLeave={textExit}
+      >
+        <video
+          src="/assets/video/wave.mp4"
+          className="w-full h-full rounded-lg"
+          autoPlay
+          loop
+        ></video>
+      </motion.div>
+      <motion.section
+        className="min-h-screen bg-slate-900"
+        style={{ y: y3 }}
+      ></motion.section>
+    </>
   );
 }
