@@ -1,10 +1,10 @@
 import { Text } from "@react-three/drei";
 
-function TextDrei() {
+function TextDrei({text, size}: any) {
     const jost = '/assets/fonts/Jost-VariableFont_wght.ttf';
   return (
-    <Text color="white" anchorX="center" anchorY="middle" fontSize={5} letterSpacing={-0.025} font={jost}>
-      Vision Agency
+    <Text color="white" anchorX="center" anchorY="middle" fontSize={size} letterSpacing={-0.025} font={jost}>
+      {text}
     </Text>
   );
 }
