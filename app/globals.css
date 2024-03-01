@@ -2,12 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
-    background-color: black;
-    color: white;
-   
+*{
+    cursor: none;
+}
+body {
+  background-color: black;
+  color: white;
 }
 
-canvas{
-    height: 70vh;
+canvas {
+  height: 70vh;
+}
+
+.cursor {
+  background-color: white;
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  
+  pointer-events: none;
 }
