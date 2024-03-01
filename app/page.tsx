@@ -20,20 +20,27 @@ export default function Home() {
     window.addEventListener("mousemove", updateMousePosition);
     return () => {
       window.removeEventListener("mousemove", updateMousePosition);
-      
     };
   }, []);
-
+  const textEnter = () => setcursorVariant("text");
+  const textExit = () => setcursorVariant("default");
   const variants: any = {
     default: {
       x: mouse.x - 16,
       y: mouse.y - 16,
     },
+    text: {
+      height: 200,
+      width: 200,
+      x: mouse.x - 75,
+      y: mouse.y - 75,
+      mixBlendMode: "difference",
+    },
   };
   return (
     <main>
       <section className="container m-auto">
-        <Header></Header>
+        <Header Enter={textEnter} Exit={textExit}></Header>
       </section>
       <motion.section>
         <div className="flex justify-center items-center">
@@ -42,6 +49,8 @@ export default function Home() {
             camera={{ position: [0, 0, 20], fov: 50 }}
             eventPrefix="client"
             className="absolute canvas-container "
+            onMouseEnter={textEnter}
+            onMouseLeave={textExit}
           >
             <ambientLight intensity={0.1} />
             <spotLight

@@ -1,8 +1,8 @@
-function Header() {
+function Header({Enter, Exit} : any) {
   return (
     <header className="p-4">
       <nav className="flex items-center justify-between">
-        <h1 className="text-3xl font-main">Vision.</h1>
+        <h1 className="text-3xl font-main" onMouseEnter={Enter} onMouseLeave={Exit}>Vision.</h1>
         <ul className="flex gap-2 font-main">
           <li><a href="#" className="hover:underline">Home</a></li>
           <li><a href="#" className="hover:underline">Work</a></li>
