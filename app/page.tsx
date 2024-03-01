@@ -4,12 +4,12 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import Sphere from "./components/Cube/Cube";
 import TextDrei from "./components/TextDrei/TextDrei";
 import { useEffect, useState } from "react";
-import { motion} from "framer-motion";
+import { motion, useScroll, useTransform} from "framer-motion";
 
 export default function Home() {
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
   const [cursorVariant, setCursorVariant] = useState("default");
-
+const { scrollYProgress } = useScroll();
 
   useEffect(() => {
     const updateMousePosition = (event: MouseEvent) => {
@@ -66,9 +66,9 @@ export default function Home() {
             }}
           ></motion.div>
         </div>
-        <div className="text-center w-full">Scroll bottom</div>
+        <div className="text-center w-full mb-20">Scroll bottom</div>
       </motion.section>
-      <motion.section className="min-h-screen">
+      <motion.section className="min-h-screen bg-white" style={{ scaleX: scrollYProgress }} onMouseEnter={textEnter} onMouseLeave={textExit}>
 
       </motion.section>
     </main>
