@@ -11,7 +11,7 @@ function Sphere() {
   });
   return (
     <mesh ref={Mymesh} receiveShadow castShadow>
-      <boxGeometry args={[6, 6, 6]}/>
+      <boxGeometry args={[7, 7, 7]}/>
       <MeshTransmissionMaterial backside backsideThickness={5} thickness={2} />
     </mesh>
   );

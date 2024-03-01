@@ -20,14 +20,6 @@ export default function Home() {
               castShadow
               angle={0.2}
             />
-            <Environment preset="city">
-              <Lightformer
-                intensity={8}
-                position={[10, 5, 0]}
-                scale={[10, 50, 1]}
-                onUpdate={(self) => self.lookAt(0, 0, 0)}
-              />
-            </Environment>
             <TextDrei></TextDrei>
             <Sphere></Sphere>
           </Canvas>
