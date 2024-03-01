@@ -1,7 +1,9 @@
-'use client';
+"use client";
 import Header from "./components/Header/Header";
 import { Canvas } from "@react-three/fiber";
 import Sphere from "./components/Sphere/Sphere";
+import { Environment, Lightformer } from "@react-three/drei";
+import TextDrei from "./components/TextDrei/TextDrei";
 export default function Home() {
   return (
     <main>
@@ -9,12 +11,27 @@ export default function Home() {
         <Header></Header>
       </section>
       <section>
-        <div >
-          <Canvas>
+        <div className="flex justify-center items-center">
+          <Canvas shadows camera={{ position: [0, 0, 20], fov: 50 }} eventPrefix="client" className="absolute">
             <ambientLight intensity={0.1} />
-            <directionalLight color="red" position={[0, 0, 5]} />
-           <Sphere></Sphere>
+            <spotLight
+              position={[20, 20, 10]}
+              penumbra={1}
+              castShadow
+              angle={0.2}
+            />
+            <Environment preset="city">
+              <Lightformer
+                intensity={8}
+                position={[10, 5, 0]}
+                scale={[10, 50, 1]}
+                onUpdate={(self) => self.lookAt(0, 0, 0)}
+              />
+            </Environment>
+            <TextDrei></TextDrei>
+            <Sphere></Sphere>
           </Canvas>
+          
         </div>
       </section>
     </main>
