@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { MeshTransmissionMaterial, Torus } from "@react-three/drei";
 
-function Sphere() {
+function Cube() {
   const Mymesh = React.useRef();
 
   useFrame(({ clock }) => {
@@ -11,10 +11,10 @@ function Sphere() {
   });
   return (
     <mesh ref={Mymesh} receiveShadow castShadow>
-      <boxGeometry args={[7, 7, 7]}/>
+      <boxGeometry args={[7.8, 7.8, 7.8]}/>
       <MeshTransmissionMaterial backside backsideThickness={5} thickness={2} />
     </mesh>
   );
 }
 
-export default Sphere;
+export default Cube;
