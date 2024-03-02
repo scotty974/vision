@@ -12,6 +12,7 @@ import {
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
+import { BackgroundBeams } from "@/components/ui/background-beams";
 
 export default function Home() {
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
@@ -93,7 +94,7 @@ export default function Home() {
           loop
         ></video>
       </motion.div>
-      <motion.div style={{ y: y2 }}>
+      <motion.div style={{ y: y2 }} id="about">
         <div
           className="flex flex-col items-center justify-center container gap-8"
           onMouseEnter={textEnter}
@@ -131,6 +132,7 @@ export default function Home() {
       <motion.section
         className="min-h-screen w-full container m-auto"
         style={{ y: y3 }}
+        id="work"
       >
         <motion.div className="w-full h-screen ">
           <ResizablePanelGroup direction="horizontal">
@@ -152,6 +154,16 @@ export default function Home() {
           </ResizablePanelGroup>
         </motion.div>
       </motion.section>
+      <div className="h-[40rem] w-full rounded-md bg-neutral-950 relative flex flex-col items-center justify-center antialiased">
+      <div className="max-w-2xl mx-auto p-4">
+        <h1 className="relative z-10 text-lg md:text-7xl  bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-600  text-center font-main font-bold">
+          Site Demo
+        </h1>
+        <p></p>
+        
+      </div>
+      <BackgroundBeams />
+    </div>
     </>
-  );
+  );  
 }
