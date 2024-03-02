@@ -1,14 +1,17 @@
 import React, { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Float, MeshTransmissionMaterial, Torus } from "@react-three/drei";
-
+import * as THREE from 'three';
 function Sphere() {
-    const Mymesh = React.useRef();
+  const Mymesh = React.useRef<THREE.Mesh>(null);
 
-    useFrame(({ clock }) => {
+  useFrame(({ clock }) => {
+    if(Mymesh.current){
       Mymesh.current.rotation.x = clock.getElapsedTime() * 0.03;
       Mymesh.current.rotation.y = clock.getElapsedTime() * 0.03;
-    });
+    }
+    
+  });
   return (
     <Float
       speed={1} // Animation speed, defaults to 1
