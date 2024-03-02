@@ -16,7 +16,7 @@ import { BackgroundBeams } from "@/components/ui/background-beams";
 
 export default function Home() {
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
-
+  const [isMobile, setIsMobile] = useState(false);
   const [cursorVariant, setCursorVariant] = useState("default");
   const { scrollYProgress } = useScroll();
   const y1 = useTransform(scrollYProgress, [0, 1], [0, 200]);
@@ -33,7 +33,11 @@ export default function Home() {
         y: event.clientY,
       });
     };
+    const checkMobile = () => {
+      setIsMobile(window.matchMedia("(max-width: 768px)").matches);
+    };
 
+    checkMobile();
     window.addEventListener("mousemove", updateMousePosition);
     return () => {
       window.removeEventListener("mousemove", updateMousePosition);
@@ -43,7 +47,11 @@ export default function Home() {
   const textEnter = () => setCursorVariant("text");
   const textExit = () => setCursorVariant("default");
 
-  return (
+  return isMobile ? (
+    <div className="h-screen flex justify-center items-center">
+      <h1 className="text-white">This site is only available on desktop</h1>
+    </div>
+  ) : (
     <>
       <motion.div
         className="cursor"
@@ -155,15 +163,14 @@ export default function Home() {
         </motion.div>
       </motion.section>
       <div className="h-[40rem] w-full rounded-md bg-neutral-950 relative flex flex-col items-center justify-center antialiased">
-      <div className="max-w-2xl mx-auto p-4">
-        <h1 className="relative z-10 text-lg md:text-7xl  bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-600  text-center font-main font-bold">
-          Site Demo
-        </h1>
-        <p></p>
-        
+        <div className="max-w-2xl mx-auto p-4">
+          <h1 className="relative z-10 text-lg md:text-7xl  bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-600  text-center font-main font-bold">
+            Site Demo
+          </h1>
+          <p></p>
+        </div>
+        <BackgroundBeams />
       </div>
-      <BackgroundBeams />
-    </div>
     </>
-  );  
+  );
 }
