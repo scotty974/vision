@@ -4,7 +4,7 @@ import { Canvas } from "@react-three/fiber";
 import Cube from "../components/Cube/Cube";
 import Sphere from "@/components/Sphere/Sphere";
 import TextDrei from "../components/TextDrei/TextDrei";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import {
   ResizableHandle,
@@ -13,14 +13,16 @@ import {
 } from "@/components/ui/resizable";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import { BackgroundBeams } from "@/components/ui/background-beams";
+import Loading from "./loading";
 
 export default function Home() {
+  
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
   const [isMobile, setIsMobile] = useState(false);
   const [cursorVariant, setCursorVariant] = useState("default");
   const { scrollYProgress } = useScroll();
   const y1 = useTransform(scrollYProgress, [0, 1], [0, 200]);
-  const y2 = useTransform(scrollYProgress, [0, 0.5, 1], [0, -400, 0]);
+  const y2 = useTransform(scrollYProgress, [0, 0.5, 1], [0, -500, 0]);
   const y3 = useTransform(scrollYProgress, [0, 1], [0, -400]);
 
   const rotationY2 = useTransform(scrollYProgress, [10, 50], [0, Math.PI / 4]);
@@ -52,7 +54,7 @@ export default function Home() {
       <h1 className="text-white">This site is only available on desktop</h1>
     </div>
   ) : (
-    <>
+    <Suspense fallback={<Loading />}>
       <motion.div
         className="cursor"
         animate={cursorVariant}
@@ -162,15 +164,7 @@ export default function Home() {
           </ResizablePanelGroup>
         </motion.div>
       </motion.section>
-      <div className="h-[40rem] w-full rounded-md bg-neutral-950 relative flex flex-col items-center justify-center antialiased">
-        <div className="max-w-2xl mx-auto p-4">
-          <h1 className="relative z-10 text-lg md:text-7xl  bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-600  text-center font-main font-bold">
-            Site Demo
-          </h1>
-          <p></p>
-        </div>
-        <BackgroundBeams />
-      </div>
-    </>
+      
+    </Suspense>
   );
 }
